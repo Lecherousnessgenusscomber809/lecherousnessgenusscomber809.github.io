@@ -88,6 +88,21 @@ function renderAll() {
   list('#list-agents', DATA.agents || [],
     a => card(a.id, a.description || '', [a.mode, a.model]));
 
+  const specialists = (DATA.agents || []).filter(a => a.mode === 'subagent');
+  list('#list-specialists', specialists,
+    a => card(a.id, a.description || '', [a.model || 'modelo padrão', a.mode || '']));
+
+  const routing = $('#list-routing');
+  if (routing) {
+    routing.innerHTML = '';
+    (DATA.routing || []).forEach(r => {
+      const s = document.createElement('span');
+      s.textContent = `${r.kind} → ${r.model.split('/').pop()} (${r.count})`;
+      routing.appendChild(s);
+    });
+    if (!(DATA.routing || []).length) routing.innerHTML = '<span>sem dados de roteamento</span>';
+  }
+
   list('#list-skills', DATA.skills || [],
     s => card(s.id, s.description || '', [s.status, (s.files || 0) + ' arq.']));
 

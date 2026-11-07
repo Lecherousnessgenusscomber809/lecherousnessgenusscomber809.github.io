@@ -21,6 +21,7 @@
     <nav id="nav">
       <button class="item active" data-tab="overview"><i>◈</i> Visão geral</button>
       <button class="item" data-tab="agents"><i>◉</i> Agentes</button>
+      <button class="item" data-tab="specialists"><i>◆</i> Especialistas</button>
       <button class="item" data-tab="skills"><i>✦</i> Skills</button>
       <button class="item" data-tab="knowledge"><i>▤</i> Conhecimentos</button>
       <button class="item" data-tab="repos"><i>⌥</i> Repositórios</button>
@@ -84,6 +85,16 @@
       <div class="grid cards" id="list-agents"></div>
     </section>
 
+    <section id="tab-specialists" class="panel">
+      <p class="muted small">Subagentes que respondem por domínio. Roteamento por regra (plugin local), não por julgamento do modelo.</p>
+      <div class="grid cards" id="list-specialists"></div>
+      <article class="card" style="margin-top:14px">
+        <h3>Regras de roteamento</h3>
+        <div class="chips" id="list-routing"></div>
+        <p class="muted small" style="margin-top:10px">Número = vezes que a categoria foi acionada desde a instalação do plugin.</p>
+      </article>
+    </section>
+
     <section id="tab-skills" class="panel">
       <div class="toolbar"><input id="f-skills" placeholder="filtrar skills…"></div>
       <div class="grid cards" id="list-skills"></div>
@@ -122,6 +133,6 @@
     </section>
   </main>
 </div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

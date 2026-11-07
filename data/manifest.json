@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-07T20:04:14.485Z",
+  "generated": "2026-11-07T20:31:53.021Z",
   "counts": {
     "agents": 7,
     "skills": 13,
-    "knowledge": 21,
+    "knowledge": 29,
     "repos": 2,
     "models": 9
   },
@@ -133,6 +133,18 @@
   ],
   "knowledge": [
     {
+      "title": "Fila de aprendizado",
+      "path": "knowledge/aprendizado/backlog.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Registro de aprendizado",
+      "path": "knowledge/aprendizado/log.md",
+      "status": "",
+      "domain": ""
+    },
+    {
       "title": "Bench de modelos - 2026-11-07 15:42",
       "path": "knowledge/benchmarks/2026-11-07-modelos-completo.md",
       "status": "",
@@ -205,6 +217,12 @@
       "domain": ""
     },
     {
+      "title": "Limites do GitHub Free",
+      "path": "knowledge/infrastructure/github-free-limits.md",
+      "status": "confirmed",
+      "domain": "infrastructure"
+    },
+    {
       "title": "Lições aprendidas",
       "path": "knowledge/licoes.md",
       "status": "",
@@ -253,10 +271,40 @@
       "domain": ""
     },
     {
+      "title": "Validação de alucinação",
+      "path": "knowledge/quality/validacao-alucinacao.md",
+      "status": "confirmed",
+      "domain": "quality"
+    },
+    {
       "title": "Compatibilidade de skills — mapa e conflitos",
       "path": "knowledge/skills-compatibilidade.md",
       "status": "",
       "domain": ""
+    },
+    {
+      "title": "Embeddings locais",
+      "path": "knowledge/software/embeddings-locais.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "Plugins do OpenCode V2",
+      "path": "knowledge/software/opencode-plugins.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "Plugin router",
+      "path": "knowledge/software/plugin-router.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "Compactação de contexto",
+      "path": "knowledge/token-efficiency/compactacao-contexto.md",
+      "status": "confirmed",
+      "domain": "token-efficiency"
     }
   ],
   "repos": [
@@ -301,6 +349,33 @@
       "state": "feito",
       "notes": "Conferir favicon, abas e pino no perfil",
       "createdAt": "2026-11-07T20:04:14.378Z"
+    }
+  ],
+  "routing": [
+    {
+      "kind": "vision",
+      "model": "opencode-go/qwen3.8-max",
+      "count": 0
+    },
+    {
+      "kind": "code",
+      "model": "opencode-go/deepseek-v4.1-flash",
+      "count": 3
+    },
+    {
+      "kind": "research",
+      "model": "opencode-go/gemini-4-argon",
+      "count": 0
+    },
+    {
+      "kind": "docs",
+      "model": "opencode-go/claude-haiku-5-5",
+      "count": 1
+    },
+    {
+      "kind": "analysis",
+      "model": "opencode-go/deepseek-v4-pro",
+      "count": 0
     }
   ]
 }

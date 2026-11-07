@@ -104,6 +104,28 @@ function tasks() {
   } catch { return []; }
 }
 
+function routing() {
+  const log = path.join(HOME, '.config', 'opencode', 'plugins', 'router', 'decisions.jsonl');
+  const counts = {};
+  if (exists(log)) {
+    for (const line of fs.readFileSync(log, 'utf8').split('\n')) {
+      if (!line.trim()) continue;
+      try {
+        const r = JSON.parse(line);
+        if (r.kind && r.applied) counts[r.kind] = (counts[r.kind] || 0) + 1;
+      } catch {}
+    }
+  }
+  const map = {
+    vision: 'opencode-go/qwen3.8-max',
+    code: 'opencode-go/deepseek-v4.1-flash',
+    research: 'opencode-go/gemini-4-argon',
+    docs: 'opencode-go/claude-haiku-5-5',
+    analysis: 'opencode-go/deepseek-v4-pro'
+  };
+  return Object.entries(map).map(([kind, model]) => ({ kind, model, count: counts[kind] || 0 }));
+}
+
 function usage() {  if (!exists(USAGE)) return { calls: 0, tokensIn: 0, tokensOut: 0, seconds: 0, byDay: {} };
   const lines = fs.readFileSync(USAGE, 'utf8').split('\n').filter(Boolean);
   const u = { calls: 0, tokensIn: 0, tokensOut: 0, seconds: 0, byDay: {} };
@@ -127,7 +149,8 @@ const manifest = {
   repos: r,
   models: models(),
   usage: usage(),
-  tasks: tasks()
+  tasks: tasks(),
+  routing: routing()
 };
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
