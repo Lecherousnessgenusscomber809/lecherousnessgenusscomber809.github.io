@@ -177,108 +177,151 @@ $('#browser-form').addEventListener('submit', e => {
   window.open(u, '_blank', 'noopener');
 });
 
-// ---------- OpenCode
-const OC_KEY = 'oc-url';
-const ocUrl = () => (localStorage.getItem(OC_KEY) || 'http://127.0.0.1:28894').replace(/\/+$/, '');
+// ---------- OpenCode (cliente da API, sem iframe)
+const OC_URL = 'oc-url';
+const OC_PASS = 'oc-pass';
+let OC_SESSION = null;
 
-async function ocTunnel() {
-  // só no painel local: busca a URL do túnel já configurada na máquina
-  if (!/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) return null;
-  try {
-    const r = await fetch('/local/tunnel', { cache: 'no-store' });
-    const j = await r.json();
-    return j.url || null;
-  } catch { return null; }
+const ocBase = () => (localStorage.getItem(OC_URL) || 'http://127.0.0.1:4096').replace(/\/+$/, '');
+const ocAuth = () => 'Basic ' + btoa('opencode:' + (localStorage.getItem(OC_PASS) || ''));
+
+async function ocApi(path, opts = {}) {
+  const res = await fetch(ocBase() + path, {
+    ...opts,
+    headers: { 'Authorization': ocAuth(), 'Content-Type': 'application/json', ...(opts.headers || {}) },
+    cache: 'no-store'
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
 }
 
-async function ocCheck() {
-  const url = ocUrl();
-  const diag = [];
-  diag.push('URL: ' + url);
-  diag.push('origem da página: ' + location.origin);
-  diag.push('página é HTTPS: ' + (location.protocol === 'https:'));
-  diag.push('destino é HTTP: ' + url.startsWith('http://'));
+function ocSetStatus(text, cls) {
+  const el = document.getElementById('oc-status');
+  if (el) { el.textContent = text; el.className = 'small ' + (cls || 'muted'); }
+}
 
-  let reachable = false;
+function ocText(msg) {
+  const c = msg && msg.content;
+  if (!c) return '';
+  if (typeof c === 'string') return c;
+  if (Array.isArray(c)) return c.map(p => p.text || p.content || '').filter(Boolean).join('\n');
+  if (c.text) return c.text;
+  try { return JSON.stringify(c).slice(0, 600); } catch { return ''; }
+}
+
+async function ocConnect() {
+  const url = document.getElementById('oc-url').value.trim() || 'http://127.0.0.1:4096';
+  const pass = document.getElementById('oc-pass').value;
+  localStorage.setItem(OC_URL, url);
+  if (pass) localStorage.setItem(OC_PASS, pass);
+  ocSetStatus('conectando…', 'muted');
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 2500);
-    await fetch(url + '/api/info', { mode: 'no-cors', signal: ctrl.signal, cache: 'no-store' });
-    clearTimeout(timer);
-    reachable = true;
+    const info = await ocApi('/api/info');
+    ocSetStatus('conectado · versão ' + (info.version || '?'), 'ok');
+    document.getElementById('oc-app').style.display = 'block';
+    document.getElementById('oc-err').textContent = '';
+    await ocSessions();
   } catch (e) {
-    diag.push('falha: ' + (e.name || e.message));
+    ocSetStatus('falhou: ' + e.message + ' (servidor com --cors e senha?)', 'err');
+    document.getElementById('oc-app').style.display = 'none';
   }
-
-  const status = document.getElementById('oc-status');
-  if (status) {
-    status.textContent = reachable
-      ? 'motor detectado neste computador — clique em Abrir'
-      : 'motor não detectado (ou bloqueado pelo navegador)';
-    status.className = 'muted small ' + (reachable ? 'ok' : 'err');
-  }
-
-  if (reachable) diag.push('fetch no-cors: respondeu');
-  else diag.push('fetch no-cors: bloqueado ou offline');
-  diag.push(reachable
-    ? 'Abrir em nova aba deve funcionar neste PC.'
-    : 'Se o motor está rodando, o bloqueio é mixed content (HTTPS → HTTP). Use túnel HTTPS.');
-
-  const box = document.getElementById('oc-diag');
-  if (box) box.innerHTML = diag.map(d => '<li>' + d + '</li>').join('');
 }
 
-async function ocPrefill() {
-  const input = document.getElementById('oc-url');
-  if (!input) return;
-  const current = input.value.trim();
-  if (current && !/^http:\/\/(127\.0\.0\.1|localhost)/.test(current)) return;
-  const tunnel = await ocTunnel();
-  if (tunnel) {
-    input.value = tunnel;
-    localStorage.setItem(OC_KEY, tunnel);
+async function ocSessions() {
+  const box = document.getElementById('oc-sessions');
+  try {
+    const j = await ocApi('/api/session?limit=15');
+    const list = j.data || [];
+    box.innerHTML = '';
+    if (!list.length) { box.textContent = 'nenhuma sessão'; return; }
+    list.forEach(s => {
+      const b = document.createElement('button');
+      b.textContent = (s.title || s.id).slice(0, 28);
+      b.onclick = () => ocOpen(s.id, s.title);
+      box.appendChild(b);
+    });
+  } catch (e) {
+    box.textContent = 'erro: ' + e.message;
+  }
+}
+
+async function ocOpen(id, title) {
+  OC_SESSION = id;
+  document.getElementById('oc-cur').textContent = title || id;
+  await ocMessages();
+}
+
+async function ocMessages() {
+  if (!OC_SESSION) return;
+  const view = document.getElementById('oc-msgs');
+  try {
+    const j = await ocApi('/api/session/' + encodeURIComponent(OC_SESSION) + '/message?limit=30');
+    const list = j.data || [];
+    view.textContent = list.map(m => {
+      const who = m.type || (m.content && m.content.role) || 'msg';
+      return '[' + who + '] ' + ocText(m);
+    }).join('\n\n') || '(vazio)';
+    view.scrollTop = view.scrollHeight;
+  } catch (e) {
+    view.textContent = 'erro: ' + e.message;
+  }
+}
+
+async function ocSend() {
+  const input = document.getElementById('oc-msg');
+  const text = input.value.trim();
+  if (!text) return;
+  if (!OC_SESSION) { document.getElementById('oc-err').textContent = 'abra ou crie uma sessão primeiro'; return; }
+  input.value = '';
+  document.getElementById('oc-err').textContent = 'enviando…';
+  try {
+    await ocApi('/api/session/' + encodeURIComponent(OC_SESSION) + '/prompt', {
+      method: 'POST',
+      body: JSON.stringify({ text })
+    });
+    document.getElementById('oc-err').textContent = 'aguardando resposta…';
+    let last = 0;
+    for (let i = 0; i < 20; i++) {
+      await new Promise(r => setTimeout(r, 1500));
+      await ocMessages();
+      const j = await ocApi('/api/session/' + encodeURIComponent(OC_SESSION) + '/message?limit=30');
+      const n = (j.data || []).length;
+      if (n > last && i > 1) { last = n; }
+      if (i >= 6) break;
+    }
+    document.getElementById('oc-err').textContent = '';
+  } catch (e) {
+    document.getElementById('oc-err').textContent = 'erro: ' + e.message;
+  }
+}
+
+async function ocNew() {
+  try {
+    const j = await ocApi('/api/session', { method: 'POST', body: JSON.stringify({ title: 'Central ' + new Date().toLocaleString('pt-BR') }) });
+    await ocSessions();
+    await ocOpen(j.id, j.title);
+  } catch (e) {
+    document.getElementById('oc-err').textContent = 'erro: ' + e.message;
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const input = document.getElementById('oc-url');
-  if (!input) return;
-  input.value = ocUrl();
-  document.getElementById('oc-save').addEventListener('click', () => {
-    const v = input.value.trim();
-    if (v) { localStorage.setItem(OC_KEY, v); ocCheck(); }
-  });
-  document.getElementById('oc-open').addEventListener('click', () => {
-    window.open(ocUrl(), '_blank', 'noopener');
-  });
-  document.getElementById('oc-embed').addEventListener('click', () => {
-    const wrap = document.getElementById('oc-frame-wrap');
-    const frame = document.getElementById('oc-frame');
-    const target = ocUrl();
-    const note = document.getElementById('oc-frame-note');
-    if (location.protocol === 'https:' && target.startsWith('http://')) {
-      note.textContent = 'Bloqueado: página HTTPS não embute HTTP local. Use "Painel local" (abre em HTTP) ou um túnel HTTPS.';
-      note.className = 'small err';
-    } else if (target.startsWith('https://')) {
-      note.textContent = 'Túnel HTTPS: deve embutir. Se ficar vazio, o servidor bloqueia frame.';
-      note.className = 'small muted';
-    } else {
-      note.textContent = 'Se ficar vazio, o servidor bloqueia incorporação.';
-      note.className = 'small muted';
+  const box = document.getElementById('oc-url');
+  if (!box) return;
+  box.value = ocBase();
+  const pass = document.getElementById('oc-pass');
+  if (pass) pass.value = localStorage.getItem(OC_PASS) || '';
+  document.getElementById('oc-conn').addEventListener('click', ocConnect);
+  document.getElementById('oc-refresh').addEventListener('click', ocSessions);
+  document.getElementById('oc-new').addEventListener('click', ocNew);
+  document.getElementById('oc-send').addEventListener('click', ocSend);
+  const msg = document.getElementById('oc-msg');
+  if (msg) msg.addEventListener('keydown', e => { if (e.key === 'Enter') ocSend(); });
+  const btn = Array.from(document.querySelectorAll('#nav .item')).find(x => x.dataset.tab === 'opencode');
+  if (btn) btn.addEventListener('click', () => {
+    if (!document.getElementById('oc-app').style.display || document.getElementById('oc-app').style.display === 'none') {
+      ocConnect().catch(() => {});
     }
-    wrap.style.display = 'block';
-    frame.src = target;
-  });
-  const localBtn = document.getElementById('oc-local');
-  if (localBtn) localBtn.addEventListener('click', () => {
-    location.href = 'http://127.0.0.1:4318/';
-  });
-  const connect = document.getElementById('oc-connect');
-  if (connect) connect.addEventListener('click', () => {
-    const link = document.getElementById('oc-pair').value.trim();
-    if (!link) return;
-    // link de pareamento não é persistido: vale só para esta abertura
-    window.open(link, '_blank', 'noopener');
   });
 });
 

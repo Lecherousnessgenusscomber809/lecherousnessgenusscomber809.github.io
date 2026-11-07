@@ -125,35 +125,33 @@
 
     <section id="tab-opencode" class="panel">
       <article class="card">
-        <h3>OpenCode Web</h3>
-        <p class="muted small" id="oc-status">verificando…</p>
-        <div class="row" style="margin-top:10px">
-          <input id="oc-url" placeholder="http://127.0.0.1:28894" autocomplete="off">
-          <button id="oc-save">Salvar</button>
-          <button id="oc-open">Abrir</button>
-          <button id="oc-embed">Embutir</button>
-          <button id="oc-local">Painel local</button>
-        </div>
-        <div id="oc-frame-wrap" style="margin-top:12px;display:none">
-          <iframe id="oc-frame" style="width:100%;height:60vh;border:1px solid var(--line);border-radius:12px;background:#0c0f14"></iframe>
-          <p class="muted small" id="oc-frame-note">Se a área acima ficar vazia, o servidor do OpenCode bloqueia incorporação (X-Frame-Options) ou o navegador barra HTTP dentro de HTTPS.</p>
-        </div>
+        <h3>Conexão com o motor</h3>
         <p class="muted small">
-          O motor roda no seu computador. Esta página é pública e não tem como
-          falar com o seu <code>localhost</code> por segurança do navegador.
-          Para usar de qualquer lugar, suba um túnel (<code>opencode pair --remote</code>)
-          e cole a URL acima.
+          O motor roda no seu computador. Inicie com CORS liberado para este site:
+          <code>opencode serve --port 4096 --cors https://enjoythelegend.github.io</code>
         </p>
         <div class="row" style="margin-top:10px">
-          <input id="oc-pair" placeholder="cole o link de pareamento (opencode pair)" autocomplete="off">
-          <button id="oc-connect">Abrir conectado</button>
+          <input id="oc-url" placeholder="http://127.0.0.1:4096" autocomplete="off">
+          <input id="oc-pass" type="password" placeholder="senha do servidor" autocomplete="off">
+          <button id="oc-conn">Conectar</button>
         </div>
-        <p class="muted small">O link de pareamento não é salvo. Ele conecta esta aba ao motor local.</p>
+        <p class="small" id="oc-status">desconectado</p>
       </article>
 
-      <article class="card" style="margin-top:14px">
-        <h3>Diagnóstico</h3>
-        <ul class="muted small" id="oc-diag"></ul>
+      <article class="card" id="oc-app" style="margin-top:14px;display:none">
+        <h3>Sessões</h3>
+        <div class="row">
+          <button id="oc-new">Nova sessão</button>
+          <button id="oc-refresh">Atualizar</button>
+          <span class="muted small" id="oc-cur"></span>
+        </div>
+        <div class="chips" id="oc-sessions"></div>
+        <div id="oc-msgs" class="viewer" style="max-height:42vh;margin-top:12px"></div>
+        <div class="row" style="margin-top:10px">
+          <input id="oc-msg" placeholder="escreva a mensagem…" autocomplete="off">
+          <button id="oc-send">Enviar</button>
+        </div>
+        <p class="muted small" id="oc-err"></p>
       </article>
     </section>
 
@@ -168,6 +166,6 @@
     </section>
   </main>
 </div>
-<script src="app.js?v=11"></script>
+<script src="app.js?v=12"></script>
 </body>
 </html>
