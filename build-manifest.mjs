@@ -35,6 +35,7 @@ function agents() {
       description: (d.description || '').slice(0, 180),
       mode: d.mode || '',
       model: d.model || '',
+      origin: d.origin || '',
       skills: list(d.skills)
     };
   });
@@ -50,7 +51,7 @@ function skills() {
     const d = fm(fs.readFileSync(skill, 'utf8'));
     const files = fs.readdirSync(path.join(dir, name), { recursive: true })
       .filter(x => fs.statSync(path.join(dir, name, x)).isFile()).length;
-    out.push({ id: name, description: (d.description || '').slice(0, 180), status: d.status || 'active', files });
+    out.push({ id: name, description: (d.description || '').slice(0, 180), status: d.status || 'active', origin: d.origin || '', files });
   }
   return out;
 }

@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-07T21:42:13.924Z",
+  "generated": "2026-11-07T22:01:06.854Z",
   "counts": {
     "agents": 7,
     "skills": 18,
-    "knowledge": 35,
+    "knowledge": 38,
     "repos": 2,
     "models": 9
   },
@@ -13,6 +13,7 @@
       "description": "Análise — planejar, calcular, avaliar risco e auditar decisões",
       "mode": "subagent",
       "model": "opencode-go/deepseek-v4-pro",
+      "origin": "propria",
       "skills": [
         "expertlens-lite",
         "skill-maintenance-audit",
@@ -25,6 +26,7 @@
       "description": "Programação — implementar, corrigir, refatorar, testar e revisar código",
       "mode": "subagent",
       "model": "opencode-go/deepseek-v4.1-flash",
+      "origin": "propria",
       "skills": [
         "revisar-codigo",
         "powershell-seguro",
@@ -36,6 +38,7 @@
       "description": "Documentos — extrair, resumir, classificar e redigir com referência",
       "mode": "subagent",
       "model": "opencode-go/claude-haiku-5-5",
+      "origin": "propria",
       "skills": [
         "document-extraction"
       ]
@@ -45,6 +48,7 @@
       "description": "Maestro — classifica o pedido e delega ao especialista com o modelo mais adequado, otimizando qualidade, latência e tokens",
       "mode": "primary",
       "model": "opencode-go/glm-5.3",
+      "origin": "propria",
       "skills": [
         "opencode-config",
         "skill-master",
@@ -56,6 +60,7 @@
       "description": "Pesquisa — buscar, comparar e responder com fonte, data e confiança",
       "mode": "subagent",
       "model": "opencode-go/gemini-4-argon",
+      "origin": "propria",
       "skills": [
         "web-research"
       ]
@@ -65,6 +70,7 @@
       "description": "Tarefas rápidas e simples — resposta curta, tradução, ajuste pontual, triagem",
       "mode": "subagent",
       "model": "opencode-go/glm-5.3-flash",
+      "origin": "propria",
       "skills": [
         "caveman"
       ]
@@ -74,6 +80,7 @@
       "description": "Visão — ler imagem, print, PDF escaneado, diagrama e vídeo",
       "mode": "subagent",
       "model": "opencode-go/qwen3.8-max",
+      "origin": "propria",
       "skills": [
         "leitura-visual"
       ]
@@ -84,108 +91,126 @@
       "id": "caveman",
       "description": ">",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     },
     {
       "id": "caveman-commit",
       "description": ">",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     },
     {
       "id": "caveman-compress",
       "description": ">",
       "status": "active",
+      "origin": "terceiro",
       "files": 10
     },
     {
       "id": "caveman-help",
       "description": ">",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     },
     {
       "id": "caveman-review",
       "description": ">",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     },
     {
       "id": "critica-visual",
       "description": "Revisar interface por critérios objetivos e apontar \"cara de IA\" antes de publicar. Use ao avaliar tela, painel, landing page ou componente visual.",
       "status": "active",
+      "origin": "propria",
       "files": 1
     },
     {
       "id": "document-extraction",
       "description": "",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     },
     {
       "id": "engineering-calculation",
       "description": "",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     },
     {
       "id": "expertlens-lite",
       "description": "ExpertLens-Lite turns any AI into a genuine expert thinking partner. It diagnoses the real problem, adapts reasoning to the domain, self-audits before answering, gives real recomme",
       "status": "active",
+      "origin": "terceiro",
       "files": 3
     },
     {
       "id": "leitura-visual",
       "description": "Transcrever e interpretar imagem, print, diagrama, desenho e PDF escaneado, separando o que está visível do que foi inferido. Use quando houver arquivo visual, captura de tela ou d",
       "status": "active",
+      "origin": "propria",
       "files": 1
     },
     {
       "id": "mcp-builder",
       "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers ",
       "status": "active",
+      "origin": "terceiro",
       "files": 9
     },
     {
       "id": "opencode-config",
       "description": "Criar e ajustar agentes, subagentes, skills, comandos e modelos no OpenCode V2",
       "status": "active",
+      "origin": "propria",
       "files": 1
     },
     {
       "id": "powershell-seguro",
       "description": "Escrever e executar scripts PowerShell no Windows com segurança, elevação controlada e reversão",
       "status": "active",
+      "origin": "propria",
       "files": 1
     },
     {
       "id": "publicar-github-web",
       "description": "Enviar e atualizar arquivos, pastas inteiras e binários no GitHub pela interface web autenticada, sem instalar Git nem usar gh",
       "status": "active",
+      "origin": "propria",
       "files": 1
     },
     {
       "id": "revisar-codigo",
       "description": "Revisão completa de código — qualidade, bugs, segurança, performance e boas práticas, com referências de linha",
       "status": "active",
+      "origin": "propria",
       "files": 1
     },
     {
       "id": "skill-maintenance-audit",
       "description": "Use this skill when maintaining or periodically reviewing existing Agent Skill packages (`SKILL.md`), including requests to check whether skills are stale, outdated, conflicting, r",
       "status": "active",
+      "origin": "terceiro",
       "files": 4
     },
     {
       "id": "skill-master",
       "description": "Discover codebase patterns and auto-generate SKILL files for .claude/skills/. Use when analyzing project for missing skills, creating new skills from codebase patterns, or syncing ",
       "status": "active",
+      "origin": "terceiro",
       "files": 21
     },
     {
       "id": "web-research",
       "description": "",
       "status": "active",
+      "origin": "terceiro",
       "files": 1
     }
   ],
@@ -237,6 +262,18 @@
       "path": "knowledge/CONVENCAO.md",
       "status": "",
       "domain": ""
+    },
+    {
+      "title": "Segundo lote",
+      "path": "knowledge/imports/lote-2026-11-07-b.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "Terceiro lote",
+      "path": "knowledge/imports/lote-2026-11-07-c.md",
+      "status": "confirmed",
+      "domain": "software"
     },
     {
       "title": "Template — Educador de IA",
@@ -391,6 +428,12 @@
     {
       "title": "Plugin router",
       "path": "knowledge/software/plugin-router.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "Worktree por tarefa",
+      "path": "knowledge/software/worktree-por-tarefa.md",
       "status": "confirmed",
       "domain": "software"
     },

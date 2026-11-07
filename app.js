@@ -87,12 +87,12 @@ function renderAll() {
     <div><span>tempo total</span><strong>${u.seconds || 0}s</strong></div>`;
 
   list('#list-agents', DATA.agents || [],
-    a => card(a.id, a.description || '', [a.mode, a.model]));
+    a => card(a.id, a.description || '', [a.mode, a.model, a.origin]));
 
   const specialists = (DATA.agents || []).filter(a => a.mode === 'subagent');
   list('#list-specialists', specialists, a => {
     const sk = (a.skills || []);
-    const tags = [a.model || 'modelo padrão'];
+    const tags = [a.model || 'modelo padrão', a.origin || 'origem ?'];
     if (sk.length) tags.push(...sk.map(s => 'skill: ' + s));
     else tags.push('sem skill dedicada');
     return card(a.id, a.description || '', tags);
@@ -110,7 +110,7 @@ function renderAll() {
   }
 
   list('#list-skills', DATA.skills || [],
-    s => card(s.id, s.description || '', [s.status, (s.files || 0) + ' arq.']));
+    s => card(s.id, s.description || '', [s.status, s.origin, (s.files || 0) + ' arq.']));
 
   list('#list-knowledge', DATA.knowledge || [],
     k => card(k.title, k.path, [k.status, k.domain]));
@@ -160,8 +160,8 @@ function renderAll() {
 }
 
 // ---------- filtros
-[['#f-agents', '#list-agents', () => DATA.agents, a => card(a.id, a.description || '', [a.mode, a.model])],
- ['#f-skills', '#list-skills', () => DATA.skills, s => card(s.id, s.description || '', [s.status, (s.files || 0) + ' arq.'])],
+[['#f-agents', '#list-agents', () => DATA.agents, a => card(a.id, a.description || '', [a.mode, a.model, a.origin])],
+ ['#f-skills', '#list-skills', () => DATA.skills, s => card(s.id, s.description || '', [s.status, s.origin, (s.files || 0) + ' arq.'])],
  ['#f-knowledge', '#list-knowledge', () => DATA.knowledge, k => card(k.title, k.path, [k.status, k.domain])]
 ].forEach(([input, target, get, render]) => {
   const node = $(input);
