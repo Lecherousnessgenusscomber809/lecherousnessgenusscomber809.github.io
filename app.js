@@ -229,6 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('oc-open').addEventListener('click', () => {
     window.open(ocUrl(), '_blank', 'noopener');
   });
+  document.getElementById('oc-embed').addEventListener('click', () => {
+    const wrap = document.getElementById('oc-frame-wrap');
+    const frame = document.getElementById('oc-frame');
+    wrap.style.display = 'block';
+    frame.src = ocUrl();
+  });
 });
 
 // ---------- load (com retentativa: o Pages pode servir 404 durante o deploy)
