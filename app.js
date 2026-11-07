@@ -232,8 +232,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('oc-embed').addEventListener('click', () => {
     const wrap = document.getElementById('oc-frame-wrap');
     const frame = document.getElementById('oc-frame');
+    const target = ocUrl();
+    const note = document.getElementById('oc-frame-note');
+    if (location.protocol === 'https:' && target.startsWith('http://')) {
+      note.textContent = 'Bloqueado: página HTTPS não embute HTTP local. Use "Painel local" (abre em HTTP) ou um túnel HTTPS.';
+      note.className = 'small err';
+    } else if (target.startsWith('https://')) {
+      note.textContent = 'Túnel HTTPS: deve embutir. Se ficar vazio, o servidor bloqueia frame.';
+      note.className = 'small muted';
+    } else {
+      note.textContent = 'Se ficar vazio, o servidor bloqueia incorporação.';
+      note.className = 'small muted';
+    }
     wrap.style.display = 'block';
-    frame.src = ocUrl();
+    frame.src = target;
+  });
+  const localBtn = document.getElementById('oc-local');
+  if (localBtn) localBtn.addEventListener('click', () => {
+    location.href = 'http://127.0.0.1:4318/';
   });
   const connect = document.getElementById('oc-connect');
   if (connect) connect.addEventListener('click', () => {
