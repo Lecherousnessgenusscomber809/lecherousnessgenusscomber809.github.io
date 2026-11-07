@@ -298,8 +298,9 @@ async function ocSend() {
 async function ocNew() {
   try {
     const j = await ocApi('/api/session', { method: 'POST', body: JSON.stringify({ title: 'Central ' + new Date().toLocaleString('pt-BR') }) });
+    const s = j.data || j;
     await ocSessions();
-    await ocOpen(j.id, j.title);
+    await ocOpen(s.id, s.title);
   } catch (e) {
     document.getElementById('oc-err').textContent = 'erro: ' + e.message;
   }
