@@ -312,6 +312,13 @@ document.addEventListener('DOMContentLoaded', () => {
   box.value = ocBase();
   const pass = document.getElementById('oc-pass');
   if (pass) pass.value = localStorage.getItem(OC_PASS) || '';
+  // no painel local, pega a senha do motor automaticamente
+  if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && pass && !pass.value) {
+    fetch('/local/key', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(j => { if (j.password) pass.value = j.password; })
+      .catch(() => {});
+  }
   document.getElementById('oc-conn').addEventListener('click', ocConnect);
   document.getElementById('oc-refresh').addEventListener('click', ocSessions);
   document.getElementById('oc-new').addEventListener('click', ocNew);
