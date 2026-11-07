@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-07T22:10:41.352Z",
+  "generated": "2026-11-07T22:14:09.009Z",
   "counts": {
     "agents": 7,
     "skills": 18,
-    "knowledge": 38,
+    "knowledge": 40,
     "repos": 2,
     "models": 9
   },
@@ -276,6 +276,12 @@
       "domain": "software"
     },
     {
+      "title": "Pesquisa de repositorios — 2026-11-07 19:12",
+      "path": "knowledge/imports/pesquisa-2026-11-07-1912.md",
+      "status": "",
+      "domain": ""
+    },
+    {
       "title": "Template — Educador de IA",
       "path": "knowledge/imports/prompts/ai-educator.md",
       "status": "",
@@ -400,6 +406,12 @@
       "path": "knowledge/skills-compatibilidade.md",
       "status": "",
       "domain": ""
+    },
+    {
+      "title": "Padrão Agent Skills",
+      "path": "knowledge/software/agent-skills-standard.md",
+      "status": "confirmed",
+      "domain": "software"
     },
     {
       "title": "Embeddings locais",
