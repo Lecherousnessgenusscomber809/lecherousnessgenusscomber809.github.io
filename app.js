@@ -16,7 +16,7 @@ document.querySelectorAll('#nav .item').forEach(btn => {
     const label = btn.textContent.trim().replace(/^\S+\s*/, '');
     $('#page-title').textContent = label;
     document.title = label + ' · EnjoytheLegenD';
-    if (btn.dataset.tab === 'opencode') ocCheck();
+    if (btn.dataset.tab === 'opencode') { ocPrefill().then(ocCheck); }
   });
 });
 
@@ -181,6 +181,16 @@ $('#browser-form').addEventListener('submit', e => {
 const OC_KEY = 'oc-url';
 const ocUrl = () => (localStorage.getItem(OC_KEY) || 'http://127.0.0.1:28894').replace(/\/+$/, '');
 
+async function ocTunnel() {
+  // só no painel local: busca a URL do túnel já configurada na máquina
+  if (!/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) return null;
+  try {
+    const r = await fetch('/local/tunnel', { cache: 'no-store' });
+    const j = await r.json();
+    return j.url || null;
+  } catch { return null; }
+}
+
 async function ocCheck() {
   const url = ocUrl();
   const diag = [];
@@ -216,6 +226,18 @@ async function ocCheck() {
 
   const box = document.getElementById('oc-diag');
   if (box) box.innerHTML = diag.map(d => '<li>' + d + '</li>').join('');
+}
+
+async function ocPrefill() {
+  const input = document.getElementById('oc-url');
+  if (!input) return;
+  const current = input.value.trim();
+  if (current && !/^http:\/\/(127\.0\.0\.1|localhost)/.test(current)) return;
+  const tunnel = await ocTunnel();
+  if (tunnel) {
+    input.value = tunnel;
+    localStorage.setItem(OC_KEY, tunnel);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
