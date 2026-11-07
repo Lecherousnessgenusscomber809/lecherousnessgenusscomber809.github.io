@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-07T20:31:53.021Z",
+  "generated": "2026-11-07T20:34:53.123Z",
   "counts": {
     "agents": 7,
     "skills": 13,
@@ -12,43 +12,63 @@
       "id": "analise",
       "description": "Análise — planejar, calcular, avaliar risco e auditar decisões",
       "mode": "subagent",
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/deepseek-v4-pro",
+      "skills": [
+        "expertlens-lite",
+        "skill-maintenance-audit"
+      ]
     },
     {
       "id": "codigo",
       "description": "Programação — implementar, corrigir, refatorar, testar e revisar código",
       "mode": "subagent",
-      "model": "opencode-go/deepseek-v4.1-flash"
+      "model": "opencode-go/deepseek-v4.1-flash",
+      "skills": [
+        "revisar-codigo",
+        "powershell-seguro",
+        "mcp-builder"
+      ]
     },
     {
       "id": "documentos",
       "description": "Documentos — extrair, resumir, classificar e redigir com referência",
       "mode": "subagent",
-      "model": "opencode-go/claude-haiku-5-5"
+      "model": "opencode-go/claude-haiku-5-5",
+      "skills": []
     },
     {
       "id": "maestro",
       "description": "Maestro — classifica o pedido e delega ao especialista com o modelo mais adequado, otimizando qualidade, latência e tokens",
       "mode": "primary",
-      "model": "opencode-go/glm-5.3"
+      "model": "opencode-go/glm-5.3",
+      "skills": [
+        "opencode-config",
+        "skill-master",
+        "expertlens-lite"
+      ]
     },
     {
       "id": "pesquisa",
       "description": "Pesquisa — buscar, comparar e responder com fonte, data e confiança",
       "mode": "subagent",
-      "model": "opencode-go/gemini-4-argon"
+      "model": "opencode-go/gemini-4-argon",
+      "skills": []
     },
     {
       "id": "rapido",
       "description": "Tarefas rápidas e simples — resposta curta, tradução, ajuste pontual, triagem",
       "mode": "subagent",
-      "model": "opencode-go/glm-5.3-flash"
+      "model": "opencode-go/glm-5.3-flash",
+      "skills": [
+        "caveman"
+      ]
     },
     {
       "id": "visao",
       "description": "Visão — ler imagem, print, PDF escaneado, diagrama e vídeo",
       "mode": "subagent",
-      "model": "opencode-go/qwen3.8-max"
+      "model": "opencode-go/qwen3.8-max",
+      "skills": []
     }
   ],
   "skills": [

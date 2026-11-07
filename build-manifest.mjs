@@ -23,12 +23,20 @@ const fm = (text) => {
 
 const exists = (p) => { try { return fs.existsSync(p); } catch { return false; } };
 
+const list = (v) => String(v || '').replace(/^\[|\]$/g, '').split(',').map(s => s.trim()).filter(Boolean);
+
 function agents() {
   const dir = path.join(CONFIG, 'agents');
   if (!exists(dir)) return [];
   return fs.readdirSync(dir).filter(f => f.endsWith('.md')).map(f => {
     const d = fm(fs.readFileSync(path.join(dir, f), 'utf8'));
-    return { id: f.replace(/\.md$/, ''), description: (d.description || '').slice(0, 180), mode: d.mode || '', model: d.model || '' };
+    return {
+      id: f.replace(/\.md$/, ''),
+      description: (d.description || '').slice(0, 180),
+      mode: d.mode || '',
+      model: d.model || '',
+      skills: list(d.skills)
+    };
   });
 }
 

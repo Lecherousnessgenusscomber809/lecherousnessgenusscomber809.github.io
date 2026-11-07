@@ -89,8 +89,13 @@ function renderAll() {
     a => card(a.id, a.description || '', [a.mode, a.model]));
 
   const specialists = (DATA.agents || []).filter(a => a.mode === 'subagent');
-  list('#list-specialists', specialists,
-    a => card(a.id, a.description || '', [a.model || 'modelo padrão', a.mode || '']));
+  list('#list-specialists', specialists, a => {
+    const sk = (a.skills || []);
+    const tags = [a.model || 'modelo padrão'];
+    if (sk.length) tags.push(...sk.map(s => 'skill: ' + s));
+    else tags.push('sem skill dedicada');
+    return card(a.id, a.description || '', tags);
+  });
 
   const routing = $('#list-routing');
   if (routing) {
