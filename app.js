@@ -13,9 +13,10 @@ document.querySelectorAll('#nav .item').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('#nav .item').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + btn.dataset.tab));
-    $('#page-title').textContent = btn.textContent.trim();
     const label = btn.textContent.trim().replace(/^\S+\s*/, '');
+    $('#page-title').textContent = label;
     document.title = label + ' · EnjoytheLegenD';
+    if (btn.dataset.tab === 'opencode') ocCheck();
   });
 });
 
@@ -174,6 +175,60 @@ $('#browser-form').addEventListener('submit', e => {
   if (!u) return;
   if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
   window.open(u, '_blank', 'noopener');
+});
+
+// ---------- OpenCode
+const OC_KEY = 'oc-url';
+const ocUrl = () => (localStorage.getItem(OC_KEY) || 'http://127.0.0.1:28894').replace(/\/+$/, '');
+
+async function ocCheck() {
+  const url = ocUrl();
+  const diag = [];
+  diag.push('URL: ' + url);
+  diag.push('origem da página: ' + location.origin);
+  diag.push('página é HTTPS: ' + (location.protocol === 'https:'));
+  diag.push('destino é HTTP: ' + url.startsWith('http://'));
+
+  let reachable = false;
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 2500);
+    await fetch(url + '/api/info', { mode: 'no-cors', signal: ctrl.signal, cache: 'no-store' });
+    clearTimeout(timer);
+    reachable = true;
+  } catch (e) {
+    diag.push('falha: ' + (e.name || e.message));
+  }
+
+  const status = document.getElementById('oc-status');
+  if (status) {
+    status.textContent = reachable
+      ? 'motor detectado neste computador — clique em Abrir'
+      : 'motor não detectado (ou bloqueado pelo navegador)';
+    status.className = 'muted small ' + (reachable ? 'ok' : 'err');
+  }
+
+  if (reachable) diag.push('fetch no-cors: respondeu');
+  else diag.push('fetch no-cors: bloqueado ou offline');
+  diag.push(reachable
+    ? 'Abrir em nova aba deve funcionar neste PC.'
+    : 'Se o motor está rodando, o bloqueio é mixed content (HTTPS → HTTP). Use túnel HTTPS.');
+
+  const box = document.getElementById('oc-diag');
+  if (box) box.innerHTML = diag.map(d => '<li>' + d + '</li>').join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('oc-url');
+  if (!input) return;
+  input.value = ocUrl();
+  document.getElementById('oc-save').addEventListener('click', () => {
+    const v = input.value.trim();
+    if (v) { localStorage.setItem(OC_KEY, v); ocCheck(); }
+  });
+  document.getElementById('oc-open').addEventListener('click', () => {
+    window.open(ocUrl(), '_blank', 'noopener');
+  });
 });
 
 // ---------- load (com retentativa: o Pages pode servir 404 durante o deploy)

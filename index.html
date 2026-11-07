@@ -28,6 +28,7 @@
       <button class="item" data-tab="models"><i>⚙</i> Modelos</button>
       <button class="item" data-tab="tasks"><i>◰</i> Tarefas</button>
       <button class="item" data-tab="browser"><i>◎</i> Navegador</button>
+      <button class="item" data-tab="opencode"><i>⌘</i> OpenCode</button>
     </nav>
 
     <div class="side-foot">
@@ -122,6 +123,29 @@
       <div class="grid cards" id="list-tasks"></div>
     </section>
 
+    <section id="tab-opencode" class="panel">
+      <article class="card">
+        <h3>OpenCode Web</h3>
+        <p class="muted small" id="oc-status">verificando…</p>
+        <div class="row" style="margin-top:10px">
+          <input id="oc-url" placeholder="http://127.0.0.1:28894" autocomplete="off">
+          <button id="oc-save">Salvar</button>
+          <button id="oc-open">Abrir</button>
+        </div>
+        <p class="muted small">
+          O motor roda no seu computador. Esta página é pública e não tem como
+          falar com o seu <code>localhost</code> por segurança do navegador.
+          Para usar de qualquer lugar, suba um túnel (<code>opencode pair --remote</code>)
+          e cole a URL acima.
+        </p>
+      </article>
+
+      <article class="card" style="margin-top:14px">
+        <h3>Diagnóstico</h3>
+        <ul class="muted small" id="oc-diag"></ul>
+      </article>
+    </section>
+
     <section id="tab-browser" class="panel">
       <form id="browser-form" class="addressbar">
         <span class="lock">⌂</span>
@@ -133,6 +157,6 @@
     </section>
   </main>
 </div>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
