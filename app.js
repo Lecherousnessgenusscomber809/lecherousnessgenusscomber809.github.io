@@ -14,7 +14,8 @@ document.querySelectorAll('#nav .item').forEach(btn => {
     document.querySelectorAll('#nav .item').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + btn.dataset.tab));
     $('#page-title').textContent = btn.textContent.trim();
-    document.title = btn.textContent.trim() + ' · EnjoytheLegenD';
+    const label = btn.textContent.trim().replace(/^\S+\s*/, '');
+    document.title = label + ' · EnjoytheLegenD';
   });
 });
 
