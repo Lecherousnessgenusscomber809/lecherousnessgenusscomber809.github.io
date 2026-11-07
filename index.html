@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EnjoytheLegenD · Central</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="mark">EL</div>
+      <div class="brand">
+        <strong>EnjoytheLegenD</strong>
+        <span>AI Command Center</span>
+      </div>
+    </div>
+
+    <nav id="nav">
+      <button class="item active" data-tab="overview"><i>◈</i> Visão geral</button>
+      <button class="item" data-tab="agents"><i>◉</i> Agentes</button>
+      <button class="item" data-tab="skills"><i>✦</i> Skills</button>
+      <button class="item" data-tab="knowledge"><i>▤</i> Conhecimentos</button>
+      <button class="item" data-tab="repos"><i>⌥</i> Repositórios</button>
+      <button class="item" data-tab="models"><i>⚙</i> Modelos</button>
+      <button class="item" data-tab="browser"><i>◎</i> Navegador</button>
+    </nav>
+
+    <div class="side-foot">
+      <p class="muted">Atualizado</p>
+      <p id="generated">—</p>
+      <a class="pill" href="https://github.com/EnjoytheLegenD" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs">
+        <span class="dot"></span>
+        <h1 id="page-title">Visão geral</h1>
+      </div>
+      <div class="top-actions">
+        <span class="chip" id="chip-agents">0 agentes</span>
+        <span class="chip" id="chip-skills">0 skills</span>
+        <span class="chip accent" id="chip-tokens">0 tokens</span>
+      </div>
+    </header>
+
+    <section id="tab-overview" class="panel active">
+      <div class="grid kpis">
+        <article class="card kpi"><p>Agentes</p><h2 id="k-agents">—</h2><span class="sub">roteados por domínio</span></article>
+        <article class="card kpi"><p>Skills</p><h2 id="k-skills">—</h2><span class="sub">carregadas sob demanda</span></article>
+        <article class="card kpi"><p>Conhecimentos</p><h2 id="k-knowledge">—</h2><span class="sub">com origem e status</span></article>
+        <article class="card kpi"><p>Repositórios</p><h2 id="k-repos">—</h2><span class="sub">versionados</span></article>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <h3>Distribuição do catálogo</h3>
+          <div class="donut-wrap">
+            <div class="donut" id="donut"></div>
+            <ul class="legend" id="legend"></ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Atividade registrada</h3>
+          <div class="bars" id="bars"></div>
+          <p class="muted small">chamadas de modelo por dia</p>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>Consumo</h3>
+        <div class="usage" id="usage"></div>
+      </article>
+    </section>
+
+    <section id="tab-agents" class="panel">
+      <div class="toolbar"><input id="f-agents" placeholder="filtrar agentes…"></div>
+      <div class="grid cards" id="list-agents"></div>
+    </section>
+
+    <section id="tab-skills" class="panel">
+      <div class="toolbar"><input id="f-skills" placeholder="filtrar skills…"></div>
+      <div class="grid cards" id="list-skills"></div>
+    </section>
+
+    <section id="tab-knowledge" class="panel">
+      <div class="toolbar"><input id="f-knowledge" placeholder="buscar conhecimento…"></div>
+      <div class="grid cards" id="list-knowledge"></div>
+    </section>
+
+    <section id="tab-repos" class="panel">
+      <div class="grid cards" id="list-repos"></div>
+    </section>
+
+    <section id="tab-models" class="panel">
+      <article class="card">
+        <h3>Modelos disponíveis</h3>
+        <p class="muted small">43 no catálogo do OpenCode Go · roteamento por domínio</p>
+        <div class="chips" id="list-models"></div>
+      </article>
+    </section>
+
+    <section id="tab-browser" class="panel">
+      <form id="browser-form" class="addressbar">
+        <span class="lock">⌂</span>
+        <input id="browser-url" placeholder="https://github.com/EnjoytheLegenD" autocomplete="off">
+        <button type="submit">Abrir</button>
+      </form>
+      <p class="muted small">Abre em nova aba. Este painel não renderiza terceiros por segurança.</p>
+      <div class="grid cards" id="list-quick"></div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

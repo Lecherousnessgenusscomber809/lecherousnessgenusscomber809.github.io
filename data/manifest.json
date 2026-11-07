@@ -1,0 +1,292 @@
+{
+  "generated": "2026-11-07T19:56:20.014Z",
+  "counts": {
+    "agents": 7,
+    "skills": 13,
+    "knowledge": 20,
+    "repos": 2,
+    "models": 9
+  },
+  "agents": [
+    {
+      "id": "analise",
+      "description": "Análise — planejar, calcular, avaliar risco e auditar decisões",
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-pro"
+    },
+    {
+      "id": "codigo",
+      "description": "Programação — implementar, corrigir, refatorar, testar e revisar código",
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4.1-flash"
+    },
+    {
+      "id": "documentos",
+      "description": "Documentos — extrair, resumir, classificar e redigir com referência",
+      "mode": "subagent",
+      "model": "opencode-go/claude-haiku-5-5"
+    },
+    {
+      "id": "maestro",
+      "description": "Maestro — classifica o pedido e delega ao especialista com o modelo mais adequado, otimizando qualidade, latência e tokens",
+      "mode": "primary",
+      "model": "opencode-go/glm-5.3"
+    },
+    {
+      "id": "pesquisa",
+      "description": "Pesquisa — buscar, comparar e responder com fonte, data e confiança",
+      "mode": "subagent",
+      "model": "opencode-go/gemini-4-argon"
+    },
+    {
+      "id": "rapido",
+      "description": "Tarefas rápidas e simples — resposta curta, tradução, ajuste pontual, triagem",
+      "mode": "subagent",
+      "model": "opencode-go/glm-5.3-flash"
+    },
+    {
+      "id": "visao",
+      "description": "Visão — ler imagem, print, PDF escaneado, diagrama e vídeo",
+      "mode": "subagent",
+      "model": "opencode-go/qwen3.8-max"
+    }
+  ],
+  "skills": [
+    {
+      "id": "caveman",
+      "description": ">",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "caveman-commit",
+      "description": ">",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "caveman-compress",
+      "description": ">",
+      "status": "active",
+      "files": 10
+    },
+    {
+      "id": "caveman-help",
+      "description": ">",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "caveman-review",
+      "description": ">",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "expertlens-lite",
+      "description": "ExpertLens-Lite turns any AI into a genuine expert thinking partner. It diagnoses the real problem, adapts reasoning to the domain, self-audits before answering, gives real recomme",
+      "status": "active",
+      "files": 3
+    },
+    {
+      "id": "mcp-builder",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers ",
+      "status": "active",
+      "files": 9
+    },
+    {
+      "id": "opencode-config",
+      "description": "Criar e ajustar agentes, subagentes, skills, comandos e modelos no OpenCode V2",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "powershell-seguro",
+      "description": "Escrever e executar scripts PowerShell no Windows com segurança, elevação controlada e reversão",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "publicar-github-web",
+      "description": "Enviar e atualizar arquivos, pastas inteiras e binários no GitHub pela interface web autenticada, sem instalar Git nem usar gh",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "revisar-codigo",
+      "description": "Revisão completa de código — qualidade, bugs, segurança, performance e boas práticas, com referências de linha",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "skill-maintenance-audit",
+      "description": "Use this skill when maintaining or periodically reviewing existing Agent Skill packages (`SKILL.md`), including requests to check whether skills are stale, outdated, conflicting, r",
+      "status": "active",
+      "files": 4
+    },
+    {
+      "id": "skill-master",
+      "description": "Discover codebase patterns and auto-generate SKILL files for .claude/skills/. Use when analyzing project for missing skills, creating new skills from codebase patterns, or syncing ",
+      "status": "active",
+      "files": 21
+    }
+  ],
+  "knowledge": [
+    {
+      "title": "Bench de modelos - 2026-11-07 15:42",
+      "path": "knowledge/benchmarks/2026-11-07-modelos-completo.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Bench de modelos - 2026-11-07 15:39",
+      "path": "knowledge/benchmarks/2026-11-07-modelos.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Benchmarks de modelos",
+      "path": "knowledge/benchmarks/README.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Roteamento de modelos",
+      "path": "knowledge/benchmarks/roteamento.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Contas e sessões",
+      "path": "knowledge/contas.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Template — Educador de IA",
+      "path": "knowledge/imports/prompts/ai-educator.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Template — Tutor de Programação",
+      "path": "knowledge/imports/prompts/coding-tutor.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Brief — Ferramenta de extração e organização de dados",
+      "path": "knowledge/imports/prompts/data-extraction-brief.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Template — Analista de Repositório GitHub",
+      "path": "knowledge/imports/prompts/github-repo-analyst.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Template — Engenheiro de Prompt",
+      "path": "knowledge/imports/prompts/prompt-engineer.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Importações",
+      "path": "knowledge/imports/README.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Índice do conhecimento",
+      "path": "knowledge/INDEX.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Lições aprendidas",
+      "path": "knowledge/licoes.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Preferências do usuário",
+      "path": "knowledge/preferencias.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "AI Command Center",
+      "path": "knowledge/projetos/ai-command-center.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "opencode-brain — base de conhecimento compartilhada",
+      "path": "knowledge/projetos/opencode-brain.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "OpenCode — pacotes free e OpenCode Go",
+      "path": "knowledge/projetos/opencode-go-free.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "optimizerDuck 2.29.0",
+      "path": "knowledge/projetos/optimizerduck.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Pasta Protegida",
+      "path": "knowledge/projetos/pasta-protegida.md",
+      "status": "",
+      "domain": ""
+    },
+    {
+      "title": "Compatibilidade de skills — mapa e conflitos",
+      "path": "knowledge/skills-compatibilidade.md",
+      "status": "",
+      "domain": ""
+    }
+  ],
+  "repos": [
+    {
+      "name": "opencode-brain",
+      "description": "Conhecimento, skills e agentes",
+      "url": "https://github.com/EnjoytheLegenD/opencode-brain",
+      "private": true,
+      "language": "Markdown"
+    },
+    {
+      "name": "ai-command-center",
+      "description": "Central de IA e especificação",
+      "url": "https://github.com/EnjoytheLegenD/ai-command-center",
+      "private": true,
+      "language": "JavaScript"
+    }
+  ],
+  "models": [
+    "opencode-go/glm-5.3-flash",
+    "opencode-go/glm-5.3",
+    "opencode-go/deepseek-v4.1-flash",
+    "opencode-go/deepseek-v4-pro",
+    "opencode-go/claude-haiku-5-5",
+    "opencode-go/gemini-4-argon",
+    "opencode-go/qwen3.8-max",
+    "opencode-go/kimi-k2.7-code",
+    "opencode-go/gpt-6-luna"
+  ],
+  "usage": {
+    "calls": 1,
+    "tokensIn": 308,
+    "tokensOut": 4,
+    "seconds": 2,
+    "byDay": {
+      "2026-11-07": 1
+    }
+  }
+}
