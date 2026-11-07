@@ -235,6 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.style.display = 'block';
     frame.src = ocUrl();
   });
+  const connect = document.getElementById('oc-connect');
+  if (connect) connect.addEventListener('click', () => {
+    const link = document.getElementById('oc-pair').value.trim();
+    if (!link) return;
+    // link de pareamento não é persistido: vale só para esta abertura
+    window.open(link, '_blank', 'noopener');
+  });
 });
 
 // ---------- load (com retentativa: o Pages pode servir 404 durante o deploy)
