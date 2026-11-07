@@ -141,11 +141,17 @@ $('#browser-form').addEventListener('submit', e => {
   window.open(u, '_blank', 'noopener');
 });
 
-// ---------- load
-fetch('data/manifest.json', { cache: 'no-store' })
-  .then(r => r.json())
-  .then(d => { DATA = d; renderAll(); })
-  .catch(() => {
-    $('#k-agents').textContent = '—';
+// ---------- load (com retentativa: o Pages pode servir 404 durante o deploy)
+async function loadData(attempt = 0) {
+  try {
+    const res = await fetch('data/manifest.json?v=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    DATA = await res.json();
+    renderAll();
+  } catch (e) {
+    if (attempt < 3) { setTimeout(() => loadData(attempt + 1), 900); return; }
     $('#generated').textContent = 'manifest indisponível';
-  });
+    console.warn('manifest:', e.message);
+  }
+}
+loadData();
