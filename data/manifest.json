@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-07T20:37:12.697Z",
+  "generated": "2026-11-07T21:42:13.924Z",
   "counts": {
     "agents": 7,
-    "skills": 17,
-    "knowledge": 29,
+    "skills": 18,
+    "knowledge": 35,
     "repos": 2,
     "models": 9
   },
@@ -16,7 +16,8 @@
       "skills": [
         "expertlens-lite",
         "skill-maintenance-audit",
-        "engineering-calculation"
+        "engineering-calculation",
+        "critica-visual"
       ]
     },
     {
@@ -106,6 +107,12 @@
     {
       "id": "caveman-review",
       "description": ">",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "critica-visual",
+      "description": "Revisar interface por critérios objetivos e apontar \"cara de IA\" antes de publicar. Use ao avaliar tela, painel, landing page ou componente visual.",
       "status": "active",
       "files": 1
     },
@@ -226,6 +233,12 @@
       "domain": ""
     },
     {
+      "title": "Convenção de conhecimento",
+      "path": "knowledge/CONVENCAO.md",
+      "status": "",
+      "domain": ""
+    },
+    {
       "title": "Template — Educador de IA",
       "path": "knowledge/imports/prompts/ai-educator.md",
       "status": "",
@@ -260,6 +273,12 @@
       "path": "knowledge/imports/README.md",
       "status": "",
       "domain": ""
+    },
+    {
+      "title": "Triagem de 14 repositórios",
+      "path": "knowledge/imports/repos-2026-11-07.md",
+      "status": "confirmed",
+      "domain": "software"
     },
     {
       "title": "Índice do conhecimento",
@@ -328,6 +347,18 @@
       "domain": "quality"
     },
     {
+      "title": "Validação das skills promovidas",
+      "path": "knowledge/quality/validacao-skills-2026-11.md",
+      "status": "confirmed",
+      "domain": "quality"
+    },
+    {
+      "title": "README.md",
+      "path": "knowledge/README.md",
+      "status": "",
+      "domain": ""
+    },
+    {
       "title": "Compatibilidade de skills — mapa e conflitos",
       "path": "knowledge/skills-compatibilidade.md",
       "status": "",
@@ -342,6 +373,18 @@
     {
       "title": "Plugins do OpenCode V2",
       "path": "knowledge/software/opencode-plugins.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "OpenCode dentro do site, sem iframe",
+      "path": "knowledge/software/opencode-web-cors.md",
+      "status": "confirmed",
+      "domain": "software"
+    },
+    {
+      "title": "OpenMontage",
+      "path": "knowledge/software/openmontage.md",
       "status": "confirmed",
       "domain": "software"
     },
@@ -406,7 +449,7 @@
     {
       "kind": "vision",
       "model": "opencode-go/qwen3.8-max",
-      "count": 0
+      "count": 1
     },
     {
       "kind": "code",
@@ -416,12 +459,12 @@
     {
       "kind": "research",
       "model": "opencode-go/gemini-4-argon",
-      "count": 0
+      "count": 1
     },
     {
       "kind": "docs",
       "model": "opencode-go/claude-haiku-5-5",
-      "count": 1
+      "count": 2
     },
     {
       "kind": "analysis",
