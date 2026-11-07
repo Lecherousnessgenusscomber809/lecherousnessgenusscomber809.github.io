@@ -91,8 +91,20 @@ function repos() {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
-function usage() {
-  if (!exists(USAGE)) return { calls: 0, tokensIn: 0, tokensOut: 0, seconds: 0, byDay: {} };
+function tasks() {
+  const file = path.join(HOME, 'ai-command-center', 'app', 'data', 'tasks.json');
+  if (!exists(file)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8')).slice(0, 20).map(t => ({
+      title: String(t.title || '').slice(0, 120),
+      state: String(t.state || 'received'),
+      notes: String(t.notes || '').slice(0, 200),
+      createdAt: t.createdAt || ''
+    }));
+  } catch { return []; }
+}
+
+function usage() {  if (!exists(USAGE)) return { calls: 0, tokensIn: 0, tokensOut: 0, seconds: 0, byDay: {} };
   const lines = fs.readFileSync(USAGE, 'utf8').split('\n').filter(Boolean);
   const u = { calls: 0, tokensIn: 0, tokensOut: 0, seconds: 0, byDay: {} };
   for (const l of lines) {
@@ -114,7 +126,8 @@ const manifest = {
   knowledge: k.slice(0, 60),
   repos: r,
   models: models(),
-  usage: usage()
+  usage: usage(),
+  tasks: tasks()
 };
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

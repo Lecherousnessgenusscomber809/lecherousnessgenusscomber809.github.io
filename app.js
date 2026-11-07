@@ -14,6 +14,7 @@ document.querySelectorAll('#nav .item').forEach(btn => {
     document.querySelectorAll('#nav .item').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + btn.dataset.tab));
     $('#page-title').textContent = btn.textContent.trim();
+    document.title = btn.textContent.trim() + ' · EnjoytheLegenD';
   });
 });
 
@@ -105,8 +106,21 @@ function renderAll() {
 
   $('#list-models').innerHTML = (DATA.models || []).map(m => `<span>${m}</span>`).join('');
 
-  const quick = $('#list-quick');
-  quick.innerHTML = '';
+  const tasks = $('#list-tasks');
+  if (tasks) {
+    tasks.innerHTML = '';
+    const list = DATA.tasks || [];
+    if (!list.length) {
+      tasks.appendChild(card('Sem tarefas exportadas', 'A lista vem da central local; rode /painel após criar tarefas.'));
+    } else {
+      list.forEach(t => {
+        const c = card(t.title, t.notes || '', [t.state, (t.createdAt || '').slice(0, 10)]);
+        tasks.appendChild(c);
+      });
+    }
+  }
+
+  const quick = $('#list-quick');  quick.innerHTML = '';
   [
     { name: 'Dashboard GitHub', url: 'https://github.com/dashboard' },
     { name: 'Meus repositórios', url: 'https://github.com/EnjoytheLegenD?tab=repositories' },

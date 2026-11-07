@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EnjoytheLegenD · Central</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,6 +25,7 @@
       <button class="item" data-tab="knowledge"><i>▤</i> Conhecimentos</button>
       <button class="item" data-tab="repos"><i>⌥</i> Repositórios</button>
       <button class="item" data-tab="models"><i>⚙</i> Modelos</button>
+      <button class="item" data-tab="tasks"><i>◰</i> Tarefas</button>
       <button class="item" data-tab="browser"><i>◎</i> Navegador</button>
     </nav>
 
@@ -102,6 +104,11 @@
         <p class="muted small">43 no catálogo do OpenCode Go · roteamento por domínio</p>
         <div class="chips" id="list-models"></div>
       </article>
+    </section>
+
+    <section id="tab-tasks" class="panel">
+      <p class="muted small">Somente leitura — gerado a partir da central local. Escrita exige o app local.</p>
+      <div class="grid cards" id="list-tasks"></div>
     </section>
 
     <section id="tab-browser" class="panel">

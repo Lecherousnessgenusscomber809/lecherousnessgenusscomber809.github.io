@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-07T19:56:20.014Z",
+  "generated": "2026-11-07T20:03:18.939Z",
   "counts": {
     "agents": 7,
     "skills": 13,
-    "knowledge": 20,
+    "knowledge": 21,
     "repos": 2,
     "models": 9
   },
@@ -223,6 +223,12 @@
       "domain": ""
     },
     {
+      "title": "Painel da home do GitHub",
+      "path": "knowledge/projetos/github-home.md",
+      "status": "",
+      "domain": ""
+    },
+    {
       "title": "opencode-brain — base de conhecimento compartilhada",
       "path": "knowledge/projetos/opencode-brain.md",
       "status": "",
@@ -288,5 +294,6 @@
     "byDay": {
       "2026-11-07": 1
     }
-  }
+  },
+  "tasks": []
 }
