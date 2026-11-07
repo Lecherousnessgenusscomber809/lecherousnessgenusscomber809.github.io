@@ -1,8 +1,8 @@
 {
-  "generated": "2026-11-07T20:34:53.123Z",
+  "generated": "2026-11-07T20:37:12.697Z",
   "counts": {
     "agents": 7,
-    "skills": 13,
+    "skills": 17,
     "knowledge": 29,
     "repos": 2,
     "models": 9
@@ -15,7 +15,8 @@
       "model": "opencode-go/deepseek-v4-pro",
       "skills": [
         "expertlens-lite",
-        "skill-maintenance-audit"
+        "skill-maintenance-audit",
+        "engineering-calculation"
       ]
     },
     {
@@ -34,7 +35,9 @@
       "description": "Documentos — extrair, resumir, classificar e redigir com referência",
       "mode": "subagent",
       "model": "opencode-go/claude-haiku-5-5",
-      "skills": []
+      "skills": [
+        "document-extraction"
+      ]
     },
     {
       "id": "maestro",
@@ -52,7 +55,9 @@
       "description": "Pesquisa — buscar, comparar e responder com fonte, data e confiança",
       "mode": "subagent",
       "model": "opencode-go/gemini-4-argon",
-      "skills": []
+      "skills": [
+        "web-research"
+      ]
     },
     {
       "id": "rapido",
@@ -68,7 +73,9 @@
       "description": "Visão — ler imagem, print, PDF escaneado, diagrama e vídeo",
       "mode": "subagent",
       "model": "opencode-go/qwen3.8-max",
-      "skills": []
+      "skills": [
+        "leitura-visual"
+      ]
     }
   ],
   "skills": [
@@ -103,10 +110,28 @@
       "files": 1
     },
     {
+      "id": "document-extraction",
+      "description": "",
+      "status": "active",
+      "files": 1
+    },
+    {
+      "id": "engineering-calculation",
+      "description": "",
+      "status": "active",
+      "files": 1
+    },
+    {
       "id": "expertlens-lite",
       "description": "ExpertLens-Lite turns any AI into a genuine expert thinking partner. It diagnoses the real problem, adapts reasoning to the domain, self-audits before answering, gives real recomme",
       "status": "active",
       "files": 3
+    },
+    {
+      "id": "leitura-visual",
+      "description": "Transcrever e interpretar imagem, print, diagrama, desenho e PDF escaneado, separando o que está visível do que foi inferido. Use quando houver arquivo visual, captura de tela ou d",
+      "status": "active",
+      "files": 1
     },
     {
       "id": "mcp-builder",
@@ -149,6 +174,12 @@
       "description": "Discover codebase patterns and auto-generate SKILL files for .claude/skills/. Use when analyzing project for missing skills, creating new skills from codebase patterns, or syncing ",
       "status": "active",
       "files": 21
+    },
+    {
+      "id": "web-research",
+      "description": "",
+      "status": "active",
+      "files": 1
     }
   ],
   "knowledge": [
